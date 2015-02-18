@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Narodmon Weather</string>
+    <string name="narod_mon">Narodmon.ru</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_about">О приложении</string>
+    <string name="atmosphere_pressure">Атмосферное давление</string>
+    <string name="temperature">Температура</string>
+    <string name="lighting">Освещение</string>
+    <string name="settings_interval">Интервал</string>
+    <string name="settings_url">URL</string>
+    <string name="submit_button">Отправить данные</string>
+    <string name="settings_send_location_data">передавать координаты</string>
+    <string name="about_description">
+<![CDATA[
+        <h3>О приложении</h3><br>
+        <p>
+            Данное приложение разработано специально для проекта Народный мониторинг
+        </p>
+        <p>
+            Автор идеи: Иван Лодяной<br>
+            E-mail: <b>ddlencemc@gmail.com</b>
+        </p>
+        <br>
+        <p>
+            Разработчик: Искандер Хабиров<br>
+            E-mail: <b>zak01011996@gmail.com</b>
+        </p>
+        <p>
+            Версия: 1.3
+        </p>
+    ]]>
+    </string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="title_activity_map">Карта</string>
+    <string name="title_activity_about">О приложении</string>
+    <string name="settings_group_main">Основные настройки</string>
+    <string name="settings_group_other">Дополнительно</string>
+    <string name="settings_title_send_data">Синхронизация</string>
+    <string name="settings_desc_send_data">Отправлять данные на сервер</string>
+    <string name="settings_title_send_geo_data">Геолокация</string>
+    <string name="settings_desc_send_geo_data">Отправлять данные о местоположении</string>
+    <string name="settings_title_interval">Интервал</string>
+    <string name="settings_desc_interval">Укажите интервал запросов на сервер в минутах</string>
+    <string name="settings_title_device_name">Название устройства</string>
+    <string name="settings_desc_device_name">Название вашего устройства в проекте Народный мониторинг</string>
+    <string name="settings_title_api_url">URL сервера</string>
+    <string name="settings_title_version">Версия</string>
+    <string name="settings_desc_version">1.3</string>
+    <string name="settings_title_imei">IMEI код для регистрации</string>
+    <string name="settings_title_about">О приложении</string>
+    <string name="settings_desc_about">Данное приложение разработано для проекта Народный мониторинг narodmon.ru.</string>
+    <string name="no_sensor">Нет датчика</string>
+
+    <string name="measurement_pressure"> мм рт.с</string>
+    <string name="measurement_thermometer">C</string>
+    <string name="measurement_light">лк</string>
+
+    <string name="default_api_url">http://narodmon.ru/post.php</string>
+
+    <string name="toast_sending_data">Отправка данных…</string>
+    <string name="toast_no_sensors">Нет ни одного датчика</string>
+    <string name="toast_not_enough_data">Получение GPS координат, пожалуйста попробуйте еще раз.</string>
+</resources>

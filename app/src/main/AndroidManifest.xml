@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="narodmon.ru.narodmonweather" >
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name="narodmon.ru.NMApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/NarodMonTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/NarodMonTheme" >
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/NarodMonTheme" >
+        </activity>
+        <activity
+            android:name=".MapActivity"
+            android:label="@string/title_activity_map"
+            android:theme="@style/NarodMonTheme" >
+        </activity>
+
+        <service
+            android:name="narodmon.ru.utils.APIService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name="narodmon.ru.utils.AutoStartServices"
+            android:enabled="true"
+            android:exported="true"
+            android:label="StartServicesNarodMon" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

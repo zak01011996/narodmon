@@ -1,0 +1,27 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "ru.narodmon.sensors"
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 4
+        versionName "1.3"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // You must install or update the Support Repository through the SDK manager to use this dependency.
+    // You must install or update the Support Repository through the SDK manager to use this dependency.
+    compile 'com.android.support:support-v4:21.+'
+}
