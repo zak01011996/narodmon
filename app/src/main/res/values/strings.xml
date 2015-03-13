@@ -6,7 +6,7 @@
     <string name="action_settings">Настройки</string>
     <string name="action_about">О приложении</string>
     <string name="atmosphere_pressure">Атмосферное давление</string>
-    <string name="temperature">Температура</string>
+    <string name="temperature">Температура и влажность</string>
     <string name="lighting">Освещение</string>
     <string name="settings_interval">Интервал</string>
     <string name="settings_url">URL</string>
@@ -28,7 +28,11 @@
             E-mail: <b>zak01011996@gmail.com</b>
         </p>
         <p>
-            Версия: 1.3
+            Разработчик: Рустам Ходжаев<br>
+            E-mail: <b>blaxmas@gmail.com</b>
+        </p>
+        <p>
+            Версия: 1.4
         </p>
     ]]>
     </string>
@@ -47,7 +51,7 @@
     <string name="settings_desc_device_name">Название вашего устройства в проекте Народный мониторинг</string>
     <string name="settings_title_api_url">URL сервера</string>
     <string name="settings_title_version">Версия</string>
-    <string name="settings_desc_version">1.3</string>
+    <string name="settings_desc_version">1.4</string>
     <string name="settings_title_imei">IMEI код для регистрации</string>
     <string name="settings_title_about">О приложении</string>
     <string name="settings_desc_about">Данное приложение разработано для проекта Народный мониторинг narodmon.ru.</string>

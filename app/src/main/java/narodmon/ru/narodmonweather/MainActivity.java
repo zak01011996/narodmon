@@ -42,11 +42,11 @@ import narodmon.ru.utils.APIService;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
-    private TextView pressureTv, temperatureTv, lightTv, pressureMeasurementTv;
+    private TextView pressureTv, temperatureTv, lightTv, pressureMeasurementTv, humidityTv;
     private DecimalFormat df = new DecimalFormat("0.0");
-    boolean isBarometer, isThermometer, isLight, isLocation, withCoordinates;
+    boolean isBarometer, isThermometer, isLight, isLocation, isHumidity, withCoordinates;
     private String pressure = null, temperature = null, light = null,
-            lat = null, lng = null, alt = null;
+            lat = null, lng = null, alt = null, humidity = null;
     private SharedPreferences preferences;
     private boolean isBlocked = false;
 
@@ -79,6 +79,7 @@ public class MainActivity extends Activity implements SensorEventListener {
                 public void onLocationChanged(Location location) {
                     lat = String.valueOf(location.getLatitude());
                     lng = String.valueOf(location.getLongitude());
+                    //alt = String.valueOf(location.getAltitude());
                 }
 
                 public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -100,12 +101,13 @@ public class MainActivity extends Activity implements SensorEventListener {
         temperatureTv = (TextView) findViewById(R.id.temperature_sensor_result);
         lightTv = (TextView) findViewById(R.id.light_sensor_result);
         pressureMeasurementTv = (TextView) findViewById(R.id.pressure_measurement);
+        humidityTv = (TextView) findViewById(R.id.humidity_sensor_result);
 
         implementSensors();
     }
 
     public void submitSensorData(View v) {
-        if(!isBarometer && !isLight && !isThermometer) {
+        if(!isBarometer && !isLight && !isThermometer && !isHumidity) {
             Toast.makeText(this, getResources().getString(R.string.toast_no_sensors), Toast.LENGTH_SHORT).show();
         } else if ((lat == null || lng == null) && isLocation) {
             Toast.makeText(this, getResources().getString(R.string.toast_not_enough_data), Toast.LENGTH_SHORT).show();
@@ -120,10 +122,12 @@ public class MainActivity extends Activity implements SensorEventListener {
         Sensor pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         Sensor temperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        Sensor humiditySensor = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
 
         isBarometer = sensorManager.registerListener(this, pressureSensor, SensorManager.SENSOR_DELAY_NORMAL);
         isThermometer = sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_NORMAL);
         isLight = sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        isHumidity = sensorManager.registerListener(this, humiditySensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -158,7 +162,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         if (currentSensor.getType() == Sensor.TYPE_PRESSURE && isBarometer) {
             pressure = df.format(sensorValue);
-            alt = String.valueOf(SensorManager.getAltitude(SensorManager.PRESSURE_STANDARD_ATMOSPHERE, sensorEvent.values[0]));
+            //alt = String.valueOf(SensorManager.getAltitude(SensorManager.PRESSURE_STANDARD_ATMOSPHERE, sensorEvent.values[0]));
 
             sensorValue = sensorValue * 0.75;
             String pressureText = df.format(sensorValue);
@@ -188,6 +192,15 @@ public class MainActivity extends Activity implements SensorEventListener {
         } else if(!isThermometer) {
             this.temperatureTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             this.temperatureTv.setText(getString(R.string.no_sensor));
+        }
+
+        if (currentSensor.getType() == Sensor.TYPE_RELATIVE_HUMIDITY && isHumidity) {
+            humidity = df.format(sensorValue);
+            this.humidityTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
+            this.humidityTv.setText(humidity + " \u2103");
+        } else if(!isHumidity) {
+            this.humidityTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            this.humidityTv.setText(getString(R.string.no_sensor));
         }
     }
 
@@ -220,20 +233,24 @@ public class MainActivity extends Activity implements SensorEventListener {
                 }
 
                 if(pressure != null) {
-                    nameValuePairs.add(new BasicNameValuePair(imei + "01", pressure));
+                    nameValuePairs.add(new BasicNameValuePair("P1", pressure));
                 }
 
                 if(temperature != null) {
-                    nameValuePairs.add(new BasicNameValuePair(imei + "02", temperature));
+                    nameValuePairs.add(new BasicNameValuePair("T1", temperature));
+                }
+
+                if(humidity != null) {
+                    nameValuePairs.add(new BasicNameValuePair("H1", humidity));
                 }
 
                 if(light != null) {
-                    nameValuePairs.add(new BasicNameValuePair(imei + "03", light));
+                    nameValuePairs.add(new BasicNameValuePair("L1", light));
                 }
 
-                if(alt != null && lat != null && lng != null) {
-                    nameValuePairs.add(new BasicNameValuePair("ele", alt));
-                }
+                //if(alt != null && lat != null && lng != null) {
+                    //nameValuePairs.add(new BasicNameValuePair("ele", alt));
+                //}
 
                 if(lat != null && lng != null) {
                     nameValuePairs.add(new BasicNameValuePair("lat", lat));

@@ -36,7 +36,7 @@ public class APIService extends Service implements SensorEventListener {
     private DecimalFormat df = new DecimalFormat("0.0");
     boolean isBarometer, isThermometer, isLight, isLocation, withCoordinates;
     private String pressure = null, temperature = null, light = null,
-                          lat = null, lng = null, alt = null;
+                          lat = null, lng = null, alt = null, humidity = null;
 
 
     @Override
@@ -65,6 +65,7 @@ public class APIService extends Service implements SensorEventListener {
                 public void onLocationChanged(Location location) {
                     lat = String.valueOf(location.getLatitude());
                     lng = String.valueOf(location.getLongitude());
+                    //alt = String.valueOf(location.getAltitude());
                 }
 
                 public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -105,7 +106,8 @@ public class APIService extends Service implements SensorEventListener {
 
 
     private boolean checkSensorValues() {
-        if((pressure == null || alt == null) && isBarometer) {
+        //if((pressure == null || alt == null) && isBarometer) {
+        if(pressure == null && isBarometer) {
             return false;
         } else if (temperature == null && isThermometer) {
             return false;
@@ -131,11 +133,13 @@ public class APIService extends Service implements SensorEventListener {
         double sensorValue = sensorEvent.values[0];
         if (currentSensor.getType() == Sensor.TYPE_PRESSURE) {
             pressure = df.format(sensorValue);
-            alt = String.valueOf(SensorManager.getAltitude(SensorManager.PRESSURE_STANDARD_ATMOSPHERE, sensorEvent.values[0]));
+            //alt = String.valueOf(SensorManager.getAltitude(SensorManager.PRESSURE_STANDARD_ATMOSPHERE, sensorEvent.values[0]));
         } else if (currentSensor.getType() == Sensor.TYPE_LIGHT) {
             light = df.format(sensorValue);
         } else if (currentSensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
             temperature = df.format(sensorValue);
+        } else if(currentSensor.getType() == Sensor.TYPE_RELATIVE_HUMIDITY) {
+            humidity = df.format(sensorValue);
         }
     }
 
@@ -170,19 +174,23 @@ public class APIService extends Service implements SensorEventListener {
                 }
 
                 if(pressure != null) {
-                    nameValuePairs.add(new BasicNameValuePair(imei + "01", pressure));
+                    nameValuePairs.add(new BasicNameValuePair("P1", pressure));
                 }
 
                 if(temperature != null) {
-                    nameValuePairs.add(new BasicNameValuePair(imei + "02", temperature));
+                    nameValuePairs.add(new BasicNameValuePair("T1", temperature));
+                }
+
+                if(humidity != null) {
+                    nameValuePairs.add(new BasicNameValuePair("H1", humidity));
                 }
 
                 if(light != null) {
-                    nameValuePairs.add(new BasicNameValuePair(imei + "03", light));
+                    nameValuePairs.add(new BasicNameValuePair("L1", light));
                 }
 
                 if(alt != null && lat != null && lng != null) {
-                    nameValuePairs.add(new BasicNameValuePair("ele", alt));
+                    //nameValuePairs.add(new BasicNameValuePair("ele", alt));
                 }
 
                 if(lat != null && lng != null) {
